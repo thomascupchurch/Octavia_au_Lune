@@ -1,0 +1,26 @@
+- [x] Verify that the copilot-instructions.md file in the .github directory is created.
+
+- [x] Clarify Project Requirements
+- [x] Scaffold the Project
+- [ ] Customize the Project
+- [ ] Install Required Extensions
+- [ ] Compile the Project
+- [ ] Create and Run Task
+- [ ] Launch the Project
+- [ ] Ensure Documentation is Complete
+
+- Summary:
+- Project requirements clarified:
+	- Single dashboard for complex building projects
+	- Gantt chart as default view, with calendar and timeline view options
+	- Image/PDF upload and association with Gantt bars (drag-and-drop)
+	- Image viewer panel for associated images
+	- Milestones, critical path, and project part hierarchy (phase > feature > item > part)
+	- Project part attributes: name, duration, dependency, milestone, people, start date, notes, images, internal/external
+	- Drag-and-drop Gantt bar editing (dates, durations, parent/child)
+	- Color scheme: #FF8200 and #4B4B4B
+	- Simple user management
+	- Modern UI, always-visible header with two logos and vertical bar, watermark footer
+	- Efficient, upgradeable file structure
+- Project scaffolded: Created client and server directories, initialized package.json files, added basic starter files for both frontend and backend, and created a README.md.
+- Next: Prioritize Gantt chart implementation as the main dashboard view, then proceed with calendar/timeline views, file upload, image association, and other UI components.
