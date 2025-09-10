@@ -1,13 +1,20 @@
 
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
 
-const multer = require('multer');
-const path = require('path');
-const archiver = require('archiver');
-const unzipper = require('unzipper');
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import multer from 'multer';
+import path from 'path';
+import archiver from 'archiver';
+import unzipper from 'unzipper';
 
+
+
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
@@ -26,7 +33,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Ensure uploads directory exists
-const fs = require('fs');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }

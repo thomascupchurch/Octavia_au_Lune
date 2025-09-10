@@ -1,37 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import { FrappeGantt } from 'frappe-gantt-react';
 
-const tasks = [
-  {
-    id: 'Task 1',
-    name: 'Design',
-    start: '2025-09-01',
-    end: '2025-09-10',
-    progress: 30,
-    dependencies: '',
-    custom_class: 'gantt-bar-design',
-  },
-  {
-    id: 'Task 2',
-    name: 'Development',
-    start: '2025-09-11',
-    end: '2025-09-20',
-    progress: 10,
-    dependencies: 'Task 1',
-    custom_class: 'gantt-bar-dev',
-  },
-  {
-    id: 'Task 3',
-    name: 'Testing',
-    start: '2025-09-21',
-    end: '2025-09-25',
-    progress: 0,
-    dependencies: 'Task 2',
-    custom_class: 'gantt-bar-test',
-  },
-];
 
-const GanttChart = () => {
+
+const GanttChart = ({ tasks = [], onTasksChange }) => {
   const ganttRef = useRef();
 
   useEffect(() => {
@@ -41,6 +13,14 @@ const GanttChart = () => {
       .gantt-bar-design { fill: #FF8200 !important; }
       .gantt-bar-dev { fill: #4B4B4B !important; }
       .gantt-bar-test { fill: #FF8200 !important; opacity: 0.7; }
+      .gantt-bar-milestone { fill: #fff !important; stroke: #FF8200 !important; stroke-width: 3px; }
+      .gantt-bar-summary {
+        fill: #4B4B4B !important;
+        opacity: 0.18 !important;
+        stroke: #4B4B4B !important;
+        stroke-width: 2px !important;
+        stroke-dasharray: 6,3 !important;
+      }
     `;
     document.head.appendChild(style);
     return () => { document.head.removeChild(style); };
@@ -54,9 +34,19 @@ const GanttChart = () => {
         tasks={tasks}
         viewMode="Day"
         onClick={task => alert(`Clicked: ${task.name}`)}
-        onDateChange={(task, start, end) => console.log('Date changed', task, start, end)}
-        onProgressChange={(task, progress) => console.log('Progress changed', task, progress)}
-        onTasksChange={tasks => console.log('Tasks changed', tasks)}
+        onDateChange={(task, start, end) => {
+          if (onTasksChange) {
+            const updated = tasks.map(t => t.id === task.id ? { ...t, start, end } : t);
+            onTasksChange(updated);
+          }
+        }}
+        onProgressChange={(task, progress) => {
+          if (onTasksChange) {
+            const updated = tasks.map(t => t.id === task.id ? { ...t, progress } : t);
+            onTasksChange(updated);
+          }
+        }}
+        onTasksChange={onTasksChange}
       />
     </div>
   );
